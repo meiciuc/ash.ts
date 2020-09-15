@@ -1,0 +1,40 @@
+{
+  "name": "@ash.ts/ash",
+  "version": "1.3.0",
+  "description": "Ash.ts - an entity component system framework for game development",
+  "main": "dist/ash.js",
+  "browser": "dist/ash.min.js",
+  "module": "dist/ash.mjs",
+  "types": "dist/ash.d.ts",
+  "keywords": [
+    "ash",
+    "typescript",
+    "framework",
+    "game",
+    "entity",
+    "component",
+    "system"
+  ],
+  "author": "Grzegorz Michlicki <grzegorz@michlicki.pl>",
+  "license": "MIT",
+  "homepage": "https://icek.github.io/ash",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/icek/ash.git",
+    "directory": "packages/ash"
+  },
+  "bugs": {
+    "url": "https://github.com/icek/ash/issues"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@ash.ts/core": "file:../core",
+    "@ash.ts/fsm": "file:../fsm",
+    "@ash.ts/io": "file:../io",
+    "@ash.ts/signals": "file:../signals",
+    "@ash.ts/tick": "file:../tick",
+    "@ash.ts/tools": "file:../tools"
+  }
+}

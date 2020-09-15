@@ -1,59 +1,73 @@
-# ash.ts
-A Typescript port of Ash Framework, an Actionscript 3 entity framework for game development
+# @ash.ts monorepo
+![Build Status](https://github.com/icek/ash/workflows/Publish/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/icek/ash/badge.svg?branch=master)](https://coveralls.io/github/icek/ash?branch=master)
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
 
+## [Installation, usage & documentation](./packages/ash/README.md)
 
-# Original README:
+## Packages
+- [ash](./packages/ash/README.md) - Full bundle containing all other modules.
+- [core](./packages/core/README.md) - Core module. [required]
+- [fsm](./packages/fsm/README.md) - Finite State Machine for Engine and Entities.
+- [io](./packages/io/README.md) - Serialization/Deserialization for Engine.
+- [signals](./packages/signals/README.md) - Signals used for internal communication. 
+[This package is required and installed by core]
+- [tick](./packages/tick/README.md) - Tick providers. [recommended]
+- [tools](./packages/tools/README.md) - Optional tools for use with Ash.  
 
-# Ash: An entity framework for Actionscript games
+## Development
+First install:
+```bash
+$ npm i
+$ npm run build
+```
 
-Ash is an Actionscript 3 entity framework for game development
+One time test:
+```bash
+$ npm run test
+```
 
-### Source Code
+One time test changes files only:
+```bash
+$ npm run test:changed
+```
 
-- [Ash](http://github.com/richardlord/Ash)
+Test watch mode:
+```bash
+$ npm run test:watch
+```
 
-### Examples
+Test watch changes files only:
+```bash
+$ npm run test:watch:changed
+```
 
-- [Asteroids](http://github.com/richardlord/Asteroids)
+Test and create coverage report:
+```bash
+$ npm run test:coverage
+```
 
-### Documentation
+Build docs:
+```bash
+$ npm run docs
+```
 
-There is no formal documentation as yet, but much of the source code contains as-doc comments.
+Typecheck files:
+```bash
+$ npm run typecheck
+```
 
-I've also written a few blog posts explaining how Ash works.
+Lint files:
+```bash
+$ npm run lint
+```
 
-- [Ash - a new entity framework for Actionscript games.](http://www.richardlord.net/blog/ecs/introducing-ash.html)
-- [What is an entity framework for game development.](http://www.richardlord.net/blog/ecs/what-is-an-entity-framework.html)
-- [Why use an entity framework for game development.](http://www.richardlord.net/blog/ecs/why-use-an-entity-framework.html)
+Lint files and fix:
+```bash
+$ npm run lint-fix
+```
 
-### Join the discussion
-
-There is a (new) [Google group for discussing Ash](https://groups.google.com/forum/?fromgroups=#!forum/ash-framework) , how to use it and how to make it better. Everyone who uses Ash or is interested in using Ash is welcome. 
-
-### Developers
-
-- [Richard Lord](http://www.richardlord.net/)
-    - [Richard on Twitter](http://twitter.com/Richard_Lord)
-    - [Richard on Github](http://github.com/richardlord)
-
-### Thank you
-
-- Tom Davies, for [Ember](https://github.com/tdavies/Ember) and [Ember2](https://github.com/tdavies/Ember2) and for the many discussions we've had about entity systems.
-- Alec McEachran, for [Xember](https://github.com/alecmce/xember) and the discussions we've had about entity systems, particularly at [try{harder}](http://www.tryharder.org.uk/)
-
-## License
-
-Ash - an entity framework for Actionscript games  
-................................................
-
-Author: Richard Lord  
-Copyright (c) Richard Lord 2011-2012  
-http://www.richardlord.net
-
-Licence Agreement (The MIT License)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+Clean everything:
+```bash
+$ npm run clean
+```

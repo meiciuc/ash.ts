@@ -1,57 +1,50 @@
-import typescript from 'rollup-plugin-typescript2';
+/* eslint-disable @typescript-eslint/camelcase */
+import resolve from '@rollup/plugin-node-resolve';
+import dts from 'rollup-plugin-dts';
 import { terser } from 'rollup-plugin-terser';
+import typescript from 'rollup-plugin-typescript2';
 
-const input = 'ash/index.ts';
+const bundlePackageName = 'ash';
+const packages = ['signals', 'core', 'fsm', 'tick', 'tools', 'io', bundlePackageName];
+export default packages.reduce((config, packageName) => {
+  const ashGlobal = 'ASH';
+  const root = `packages/${packageName}`;
+  const filePath = `${root}/dist/${packageName}`;
+  const isBundle = packageName === bundlePackageName;
+  const name = isBundle ? ashGlobal : `${ashGlobal}.${packageName}`;
+  const globals = isBundle ? undefined : pkg => pkg.replace(/^@ash\.ts\/(.*)$/g, `${ashGlobal}.$1`);
+  const external = isBundle ? undefined : pkg => pkg.startsWith('@ash.ts/');
+  const minifier = terser({ keep_classnames: true, keep_fnames: true });
 
-const typescriptConfig = {
-  useTsconfigDeclarationDir: true,
-  clean: true,
-  verbosity: 1
-};
-
-const tsconfigOverride = {
-  compilerOptions: {
-    target: 'es5',
-    downlevelIteration: true,
-    importHelpers: true,
-    lib: [
-      'dom',
-      'es5',
-      'es2015.collection',
-      'es2015.iterable'
-    ]
-  }
-};
-
-export default [
-  {
-    input,
-    output: { format: 'umd', file: 'dist/ash.ts.js', name: 'ash' },
-    plugins: [typescript(typescriptConfig)]
-  },
-  {
-    input,
-    output: { format: 'umd', file: 'dist/ash.ts.min.js', name: 'ash' },
-    plugins: [typescript(typescriptConfig), terser()]
-  },
-  {
-    input,
-    output: { format: 'esm', file: 'dist/ash.ts.mjs' },
-    plugins: [typescript(typescriptConfig)]
-  },
-  {
-    input,
-    output: { format: 'esm', file: 'dist/ash.ts.min.mjs' },
-    plugins: [typescript(typescriptConfig), terser()]
-  },
-  {
-    input,
-    output: { format: 'umd', file: 'dist/ash.ts.es5.js', name: 'ash' },
-    plugins: [typescript({ ...typescriptConfig, tsconfigOverride })]
-  },
-  {
-    input,
-    output: { format: 'umd', file: 'dist/ash.ts.es5.min.js', name: 'ash' },
-    plugins: [typescript({ ...typescriptConfig, tsconfigOverride }), terser()]
-  }
-];
+  return [
+    ...config,
+    {
+      input: `${root}/src/index.ts`,
+      plugins: [
+        resolve({ modulesOnly: true }),
+        typescript({
+          useTsconfigDeclarationDir: true,
+          clean: true,
+          verbosity: 1,
+          tsconfigOverride: {
+            include: [`${root}/src/`],
+            compilerOptions: {
+              baseUrl: root,
+              declarationDir: `${root}/dist/types`,
+            },
+          },
+        }),
+      ],
+      external,
+      output: [
+        { format: 'umd', file: `${filePath}.js`, globals, name },
+        { format: 'umd', file: `${filePath}.min.js`, globals, name, plugins: [minifier] },
+        { format: 'es', file: `${filePath}.mjs` },
+        { format: 'es', file: `${filePath}.min.mjs`, plugins: [minifier] },
+      ],
+    }, {
+      input: `${root}/dist/types/index.d.ts`,
+      plugins: [dts()],
+      output: { format: 'es', file: `${filePath}.d.ts` },
+    }];
+}, []);

@@ -1,9 +1,9 @@
 # Folders
 node_modules
-.rpt2_cache
-reports
-dist/types
+docs
+coverage
+dist
 
 # Files
 npm-debug.log
-ash.ts-*.tgz
+ash*.tgz

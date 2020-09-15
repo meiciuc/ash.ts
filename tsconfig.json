@@ -4,18 +4,34 @@
     "module": "es6",
     "moduleResolution": "node",
     "declaration": true,
-    "declarationDir": "dist/types",
     "sourceMap": true,
     "strict": true,
-    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "lib": ["DOM", "ES6"],
-    "pretty": true
+    "lib": ["dom", "es6"],
+    "pretty": true,
+    "esModuleInterop": true,
+    "baseUrl": "./packages",
+    "paths": {
+      "@ash.ts/*": ["./*/src"]
+    }
   },
-  "include": [
-    "./ash"
-  ],
-  "exclude": [
-    "./ash/io"
-  ]
+  "typedocOptions": {
+    "name": "ash",
+    "mode": "modules",
+    "module": "es6",
+    "target": "es6",
+    "out": "docs",
+    "exclude": ["packages/**/tests/**/*", "packages/**/node_modules/**/*"],
+    "readme": "packages/ash/README.md",
+    "theme": "default",
+    "ignoreCompilerErrors": true,
+    "excludePrivate": true,
+    "excludeNotExported": true,
+    "preserveConstEnums": true,
+    "stripInternal": true,
+    "gitRevision": "master",
+    "rewriteLinks": {
+      "^\\.\\./([^/]+)(?:#readme|/README.md)": "modules/_ash_ts_$1.html"
+    }
+  }
 }

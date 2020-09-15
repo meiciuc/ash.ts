@@ -1,0 +1,12 @@
+{
+  "version": "independent",
+  "packages": [
+    "packages/*"
+  ],
+  "command": {
+    "version": {
+      "gitTagVersion": false,
+      "push": false
+    }
+  }
+}
